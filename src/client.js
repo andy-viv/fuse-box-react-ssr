@@ -15,13 +15,6 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 render(Root)
 
-if (module.hot) {
-  module.hot.accept('./Root', () => {
-    const NextRoot = require('./Root')
-    render(NextRoot)
-  })
-}
-
 function render (RootElement) {
   ReactDOM.render(
     <RootElement store={store} client={client} history={history} />,
