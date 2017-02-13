@@ -7,7 +7,6 @@ const fuseBox = fsbx.FuseBox.init({
     outFile: './dist/sourcemaps.js.map'
   },
   outFile: './dist/bundle.js',
-  cache: false,
   plugins: [
     fsbx.EnvPlugin({
       __CLIENT__: true,
@@ -33,7 +32,6 @@ const fuseBox = fsbx.FuseBox.init({
 })
 
 fuseBox.devServer('>client.js', {
-  port: 3446,
   httpServer: false,
   root: 'dist'
 })
