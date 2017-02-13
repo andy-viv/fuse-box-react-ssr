@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {up, down} from '../../redux/modules/counter'
 // import style from './style.scss'
+import config from '../../config'
 
 const style = {}
 
@@ -17,6 +18,7 @@ class Home extends Component {
           <button onClick={down}>Down</button>
           <button onClick={up}>Up</button>
         </p>
+        <div>{JSON.stringify(config)}</div>
       </div>
     )
   }

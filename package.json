@@ -4,13 +4,68 @@
   "description": "Get started with node Express using FuseBox module loader and bundler Edit",
   "main": "index.js",
   "scripts": {
-    "start": "node bin/server.js | node ./fuse.js"
+    "start": "better-npm-run start-prod",
+    "build": "better-npm-run build",
+    "start-dev": "better-npm-run start-dev",
+    "dev": "concurrently --kill-others \"npm run start-dev\" \"npm run watch-client\"",
+    "watch-client": "better-npm-run watch-client",
+    "clean": "rimraf .fusebox dist/bundle.js dist/sourcemaps.js.map"
+  },
+  "betterScripts": {
+    "build": {
+      "command": "node ./fuse.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "start-prod": {
+      "command": "node ./bin/server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "production",
+        "PORT": 8080
+      }
+    },
+    "start-prod-api": {
+      "command": "node ./bin/api.js",
+      "env": {
+        "NODE_PATH": "./api",
+        "NODE_ENV": "production",
+        "APIPORT": 3030
+      }
+    },
+    "start-dev": {
+      "command": "node ./bin/server.js",
+      "env": {
+        "NODE_PATH": "./src",
+        "NODE_ENV": "development",
+        "PORT": 3000,
+        "APIPORT": 3030
+      }
+    },
+    "start-dev-api": {
+      "command": "node ./bin/api.js",
+      "env": {
+        "NODE_PATH": "./api",
+        "NODE_ENV": "development",
+        "APIPORT": 3030
+      }
+    },
+    "watch-client": {
+      "command": "node fuse.js",
+      "env": {
+        "UV_THREADPOOL_SIZE": 100,
+        "NODE_PATH": "./src",
+        "PORT": 3000,
+        "APIPORT": 3030
+      }
+    }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gerhardsletten/fuse-box-react-ssr.git"
   },
-  "author": "devmondo",
+  "author": "gerharsletten",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gerhardsletten/fuse-box-react-ssr/issues"
@@ -21,8 +76,11 @@
     "babel-plugin-transform-react-jsx": "^6.8.0",
     "babel-preset-latest": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
-    "fuse-box": "^1.3.109",
-    "node-sass": "^4.5.0"
+    "better-npm-run": "0.0.14",
+    "concurrently": "^3.3.0",
+    "fuse-box": "^1.3.112",
+    "node-sass": "^4.5.0",
+    "rimraf": "^2.5.4"
   },
   "dependencies": {
     "express": "^4.14.1",

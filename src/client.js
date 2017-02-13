@@ -9,14 +9,14 @@ import ApiClient from './helpers/ApiClient'
 
 const client = new ApiClient()
 const dest = document.getElementById('content')
-const store = createStore(browserHistory, client, window.__data)
-const history = syncHistoryWithStore(browserHistory, store)
+window.store = window.store || createStore(browserHistory, client, window.__data)
+const history = syncHistoryWithStore(browserHistory, window.store)
 
 render(Root)
 
 function render (RootElement) {
   ReactDOM.render(
-    <RootElement store={store} client={client} history={history} />,
+    <RootElement store={window.store} client={client} history={history} />,
     dest
   )
 }

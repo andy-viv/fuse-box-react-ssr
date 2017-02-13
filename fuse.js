@@ -8,11 +8,6 @@ const fuseBox = fsbx.FuseBox.init({
   },
   outFile: './dist/bundle.js',
   plugins: [
-    fsbx.EnvPlugin({
-      __CLIENT__: true,
-      __SERVER__: false,
-      __DEVELOPMENT__: true
-    }),
     fsbx.BabelPlugin({
       config: {
         sourceMaps: true,
@@ -22,6 +17,12 @@ const fuseBox = fsbx.FuseBox.init({
         ]
       }
     }),
+    fsbx.EnvPlugin({
+      __CLIENT__: true,
+      __SERVER__: false,
+      __DEVELOPMENT__: !(process.env.NODE_ENV && process.env.NODE_ENV === 'production'),
+      NODE_ENV: process.env.NODE_ENV
+    }),
     [
       fsbx.SassPlugin({outputStyle: 'compressed'}),
       fsbx.CSSPlugin({})
@@ -30,8 +31,11 @@ const fuseBox = fsbx.FuseBox.init({
     fsbx.HTMLPlugin({useDefault: false})
   ]
 })
-
-fuseBox.devServer('>client.js', {
-  httpServer: false,
-  root: 'dist'
-})
+if (process.env.NODE_ENV === 'production') {
+  fuseBox.bundle('>client.js')
+} else {
+  fuseBox.devServer('>client.js', {
+    httpServer: false,
+    root: 'dist'
+  })
+}

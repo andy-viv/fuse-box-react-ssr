@@ -54,5 +54,5 @@ app.use((req, res) => {
 })
 
 app.listen(config.port, function () {
-  console.log('Example app listening on port 3446!')
+  console.log(`Example app listening on port ${config.port}`)
 })
