@@ -6,7 +6,15 @@ import config from '../../config'
 
 const style = {}
 
-class Home extends Component {
+@connect(
+  (state) => ({
+    count: state.counter.count
+  }),
+  {
+    up, down
+  }
+)
+export default class Home extends Component {
 
   render () {
     const {up, down, count} = this.props
@@ -18,17 +26,7 @@ class Home extends Component {
           <button onClick={down}>Down</button>
           <button onClick={up}>Up</button>
         </p>
-        <div>{JSON.stringify(config)}</div>
       </div>
     )
   }
 }
-
-export default connect(
-  (state) => ({
-    count: state.counter.count
-  }),
-  {
-    up, down
-  }
-)(Home)

@@ -1,4 +1,6 @@
 const fsbx = require('fuse-box')
+const fs = require('fs')
+const babelrc = fs.readFileSync('./.babelrc')
 
 const fuseBox = fsbx.FuseBox.init({
   homeDir: 'src/',
@@ -9,13 +11,7 @@ const fuseBox = fsbx.FuseBox.init({
   outFile: './dist/bundle.js',
   plugins: [
     fsbx.BabelPlugin({
-      config: {
-        sourceMaps: true,
-        presets: ['latest', 'stage-0'],
-        plugins: [
-          ['transform-react-jsx']
-        ]
-      }
+      config: Object.assign({}, {sourceMaps: true}, JSON.parse(babelrc))
     }),
     fsbx.EnvPlugin({
       __CLIENT__: true,

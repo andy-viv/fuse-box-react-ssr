@@ -1,5 +1,5 @@
-const COUNTER_UP = 'COUNTER_UP'
-const COUNTER_DOWN = 'COUNTER_DOWN'
+const COUNTER_UP = 'fuse-react-ssr/counter/COUNTER_UP'
+const COUNTER_DOWN = 'fuse-react-ssr/counter/COUNTER_DOWN'
 
 const initialState = {
   count: 0
