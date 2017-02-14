@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Helmet from 'react-helmet'
+
 import {up, down} from '../../redux/modules/counter'
 // import style from './style.scss'
 import config from '../../config'
@@ -20,7 +22,8 @@ export default class Home extends Component {
     const {up, down, count} = this.props
     return (
       <div className={style.container}>
-        <h1>home</h1>
+        <Helmet title='Home' />
+        <h1>Home</h1>
         <p>Count: {count}</p>
         <p>
           <button onClick={down}>Down</button>

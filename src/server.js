@@ -80,7 +80,7 @@ app.use((req, res) => {
           </Provider>
         )
         global.navigator = {userAgent: req.headers['user-agent']}
-        res.status(200).send('<!doctype html>' +
+        res.status(200).send('<!doctype html>\n' +
           ReactDOM.renderToString(<Html component={component} store={store} />))
       })
     } else {
