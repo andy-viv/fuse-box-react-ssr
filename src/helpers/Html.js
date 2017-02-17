@@ -2,6 +2,9 @@ import React, {Component, PropTypes} from 'react'
 import ReactDOM from 'react-dom/server'
 import serialize from 'serialize-javascript'
 import Helmet from 'react-helmet'
+import styleSheet from 'styled-components/lib/models/StyleSheet'
+
+styleSheet.flush()
 
 export default class Html extends Component {
   static propTypes = {
@@ -23,6 +26,7 @@ export default class Html extends Component {
           {head.script.toComponent()}
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <link rel='shortcut icon' href='data:image/x-icon;,' type='image/x-icon' />
+          <style>{styleSheet.rules().map(rule => rule.cssText).join('\n')}</style>
         </head>
         <body>
           <div id='content' dangerouslySetInnerHTML={{__html: content}} />

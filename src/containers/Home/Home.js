@@ -3,10 +3,7 @@ import {connect} from 'react-redux'
 import Helmet from 'react-helmet'
 
 import {up, down} from '../../redux/modules/counter'
-// import style from './style.scss'
 import config from '../../config'
-
-const style = {}
 
 @connect(
   (state) => ({
@@ -21,7 +18,7 @@ export default class Home extends Component {
   render () {
     const {up, down, count} = this.props
     return (
-      <div className={style.container}>
+      <div>
         <Helmet title='Home' />
         <h1>Home</h1>
         <p>Count: {count}</p>

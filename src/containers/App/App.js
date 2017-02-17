@@ -2,10 +2,54 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {asyncConnect} from 'redux-connect'
 import {Link} from 'react-router'
-// import style from './style.scss'
+import styled, {injectGlobal} from 'styled-components'
 import {isLoaded as isInfoLoaded, load as loadInfo} from '../../redux/modules/info'
 
-const style = {}
+injectGlobal`
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  flex-direction: column;
+`;
+
+const Content = styled.main`
+  flex: 1;
+  padding: 20px;
+`;
+
+const Header = styled.header`
+  padding: 20px;
+  background: ${props => props.dark ? '#333' : '#eee'};
+  color: ${props => props.dark ? '#fff' : '#000'};
+`;
+
+const Footer = styled(Header)`
+  background: #ccc;
+`;
+
+const NavItem = styled(Link)`
+  padding: 4px;
+  background: #333;
+  color: #fff;
+  margin-right: 5px;
+  &:hover {
+    background: #555;
+    color: #ccc;
+  }
+`;
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
@@ -26,20 +70,20 @@ export default class App extends Component {
   render () {
     const {info: {message}} = this.props
     return (
-      <div className={style.container}>
-        <header className={style.header}>
+      <Container>
+        <Header>
           <nav>
-            <Link to='/'>Home</Link>
-            <Link to='/about'>About</Link>
+            <NavItem to='/'>Home</NavItem>
+            <NavItem to='/about'>About</NavItem>
           </nav>
-        </header>
-        <main className={style.content}>
+        </Header>
+        <Content>
           {this.props.children}
-        </main>
-        <footer>
+        </Content>
+        <Footer>
           <p>Info: {message}</p>
-        </footer>
-      </div>
+        </Footer>
+      </Container>
     )
   }
 }
